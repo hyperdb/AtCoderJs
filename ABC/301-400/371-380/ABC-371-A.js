@@ -1,6 +1,3 @@
-/**
- * 
- */
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
@@ -11,9 +8,7 @@ process.stdin.on('data', function (chunk) {
 process.stdin.on('end', function () {
     main(g_input.split(/\r?\n/));
 });
-/**
- * 
- */
+
 function main(inputs) {
     const S = inputs[0].split(' ');
     var a = 0, b = 0, c = 0;
