@@ -1,6 +1,3 @@
-/*
- * TLE
- */
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
@@ -16,27 +13,23 @@ function main(inputs) {
     const N = parseInt(inputs[0]);
     const K = inputs[1].split(' ').map((x) => parseInt(x));
 
-    var a = sum(K);
-    var b = a;
+    var total = sum(K);
+    var bits = 1 << N;
 
-    for (var i = 1; i < N; i++) {
-        c = combination(K, i);
-        c.forEach((x) => {
-            var y = sum(x);
-            b = Math.min(b, Math.max(y, a - y));
-        });
+    var ans = total
+    for (var i = 0; i < bits; i++) {
+        var gr_A = 0;
+        var gr_B = 0;
+        for (var j = 0; j < N; j++) {
+            flag = 1 << j;
+            if (i & flag) {
+                gr_A += K[j]
+            }
+        }
+        gr_B = total - gr_A;
+        ans = Math.min(ans, Math.max(gr_A, gr_B));
     }
-    console.log(b);
-
-}
-
-const combination = (array, n) => {
-    return n === 1
-        ? array.map(x => [x])
-        : array.flatMap((x, i) => {
-            return combination(array.slice(i + 1), n - 1)
-                .map(y => [x].concat(y))
-        })
+    console.log(ans);
 }
 
 const sum = (array) => {
